@@ -106,6 +106,17 @@ export class StartupService {
             icon: { type: 'icon', value: 'appstore' }
           }
         ]
+      },
+      {
+        text: 'CRM',
+        icon: { type: 'icon', value: 'team' },
+        children: [
+          {
+            text: 'Contacts',
+            link: '/crm/contacts',
+            icon: { type: 'icon', value: 'contacts' }
+          }
+        ]
       }
     ]);
     // Can be set page suffix title, https://ng-alain.com/theme/title
