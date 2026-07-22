@@ -1,7 +1,7 @@
 /**
- * 转化成RMB元字符串
+ * convert to RMB format
  *
- * @param digits 当数字类型时，允许指定小数点后数字的个数，默认2位小数
+ * @param digits when the value is a number, you can specify the number of decimal places, default is 2
  */
 export function yuan(value: number | string, digits = 2): string {
   if (typeof value === 'number') {

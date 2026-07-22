@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { StartupService } from '@core';
 import { ReuseTabService } from '@delon/abc/reuse-tab';
 import { ALLOW_ANONYMOUS, DA_SERVICE_TOKEN, SocialOpenType, SocialService } from '@delon/auth';
-import { I18nPipe, SettingsService, _HttpClient } from '@delon/theme';
+import { SettingsService, _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -26,7 +26,7 @@ import { finalize } from 'rxjs';
   imports: [
     RouterLink,
     ReactiveFormsModule,
-    I18nPipe,
+    //
     NzCheckboxModule,
     NzTabsModule,
     NzAlertModule,
@@ -103,8 +103,8 @@ export class UserLoginComponent implements OnDestroy {
       }
     }
 
-    // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
-    // 然一般来说登录请求不需要校验，因此加上 `ALLOW_ANONYMOUS` 表示不触发用户 Token 校验
+    // By default configuration, all HTTP requests will trigger user Token validation (https://ng-alain.com/auth/getting-started)
+    // Generally, login requests do not require validation, so `ALLOW_ANONYMOUS` is added to indicate that user Token validation should not be triggered
     this.loading = true;
     this.cdr.detectChanges();
     this.http
@@ -132,13 +132,13 @@ export class UserLoginComponent implements OnDestroy {
           this.cdr.detectChanges();
           return;
         }
-        // 清空路由复用信息
+        // clear routing reuse information
         this.reuseTabService?.clear();
-        // 设置用户Token信息
+        // Set user Token information
         // TODO: Mock expired value
         res.user.expired = +new Date() + 1000 * 60 * 5;
         this.tokenService.set(res.user);
-        // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
+        // Retrieve StartupService content, we always believe that application information will be affected by the current user's authorization scope
         this.startupSrv.load().subscribe(() => {
           let url = this.tokenService.referrer!.url || '/';
           if (url.includes('/passport')) {
