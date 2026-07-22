@@ -25,8 +25,13 @@ import { AlainConfig } from '@delon/util/config';
 import { environment } from '@env/environment';
 import { CELL_WIDGETS, ST_WIDGETS, SF_WIDGETS } from '@shared';
 import { enUS as dateLang } from 'date-fns/locale';
+import { BarChart, LineChart } from 'echarts/charts';
+import { GridComponent, LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
+import * as echarts from 'echarts/core';
+import { CanvasRenderer } from 'echarts/renderers';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
 import { en_US as zorroLang } from 'ng-zorro-antd/i18n';
+import { provideEchartsCore } from 'ngx-echarts';
 
 import { ICONS } from '../style-icons';
 import { ICONS_AUTO } from '../style-icons-auto';
@@ -48,6 +53,7 @@ const alainConfig: AlainConfig = {
 };
 
 const ngZorroConfig: NzConfig = {};
+echarts.use([LineChart, BarChart, GridComponent, TooltipComponent, TitleComponent, LegendComponent, CanvasRenderer]);
 
 const routerFeatures: RouterFeatures[] = [
   withComponentInputBinding(),
@@ -77,6 +83,7 @@ const providers: Array<Provider | EnvironmentProviders> = [
 
   provideNzConfig(ngZorroConfig),
 
+  provideEchartsCore({ echarts }),
   provideAuth(),
 
   provideCellWidgets(...CELL_WIDGETS),

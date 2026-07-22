@@ -1,1 +1,192 @@
-<page-header />
+<div class="dashboard">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="welcome-tag"> 👋 Good Morning </span>
+
+      <h1>
+        Welcome back,
+        <span>Saurabh</span>
+      </h1>
+
+      <p> Manage your business smarter with real-time analytics, customer insights and operational performance. </p>
+
+      <div class="hero-actions">
+        <button nz-button nzType="primary"> Add Customer </button>
+
+        <button nz-button> Create Invoice </button>
+
+        <button nz-button> Add Vendor </button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card">
+        <span>Today's Revenue</span>
+        <h2>₹1,24,580</h2>
+      </div>
+
+      <div class="hero-card">
+        <span>Orders</span>
+        <h2>246</h2>
+      </div>
+
+      <div class="hero-card">
+        <span>Growth</span>
+        <h2>+18.4%</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI Section -->
+
+  <section class="kpi-section">
+    <nz-row [nzGutter]="[24, 24]">
+      @for (item of kpis; track item.title) {
+        <nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="6">
+          <nz-card class="kpi-card">
+            <div class="kpi-top">
+              <span>{{ item.title }}</span>
+
+              <i nz-icon [nzType]="item.icon"></i>
+            </div>
+
+            <h2>{{ item.value }}</h2>
+
+            <p>
+              <span class="positive">
+                {{ item.change }}
+              </span>
+
+              this month
+            </p>
+          </nz-card>
+        </nz-col>
+      }
+    </nz-row>
+  </section>
+  <section class="analytics-section">
+    <nz-row [nzGutter]="[24, 24]">
+      <nz-col nzXs="24" nzLg="12">
+        <nz-card class="analytics-card">
+          <div class="analytics-header">
+            <div>
+              <h3>Revenue Analytics</h3>
+              <p>Monthly Revenue Overview</p>
+            </div>
+            <div class="analytics-value">
+              <h2>₹4.85 Cr</h2>
+              <div class="analytics-growth">
+                <span class="positive">▲ 18.4%</span>
+                <small>vs last year</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart" echarts [options]="revenueChartOption"> </div>
+        </nz-card>
+      </nz-col>
+
+      <nz-col nzXs="24" nzLg="12">
+        <nz-card class="analytics-card">
+          <div class="analytics-header">
+            <div>
+              <h3>Sales Analytics</h3>
+              <p>Weekly Sales Overview</p>
+            </div>
+            <div class="analytics-value">
+              <h2>1,284</h2>
+              <div class="analytics-growth">
+                <span class="positive">▲ 12%</span>
+                <small>vs last week</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart" echarts [options]="salesChartOption"> </div>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </section>
+  <section class="dashboard-section">
+    <nz-row [nzGutter]="[24, 24]">
+      <nz-col nzXs="24" nzLg="16">
+        <nz-card class="section-card">
+          <div class="section-header">
+            <h3>Recent Orders</h3>
+          </div>
+
+          <nz-table [nzData]="recentOrders" [nzBordered]="false" [nzFrontPagination]="false" nzSize="middle">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (order of recentOrders; track order.id) {
+                <tr>
+                  <td>{{ order.id }}</td>
+
+                  <td>
+                    <nz-avatar nzSize="small">
+                      {{ order.customer.charAt(0) }}
+                    </nz-avatar>
+
+                    <span class="customer-name">
+                      {{ order.customer }}
+                    </span>
+                  </td>
+
+                  <td>{{ order.amount }}</td>
+
+                  <td>
+                    <nz-tag
+                      [nzColor]="
+                        order.status === 'Completed'
+                          ? 'success'
+                          : order.status === 'Pending'
+                            ? 'warning'
+                            : order.status === 'Cancelled'
+                              ? 'error'
+                              : 'processing'
+                      "
+                    >
+                      {{ order.status }}
+                    </nz-tag>
+                  </td>
+
+                  <td>{{ order.date }}</td>
+                </tr>
+              }
+            </tbody>
+          </nz-table>
+        </nz-card>
+      </nz-col>
+
+      <nz-col nzXs="24" nzLg="8">
+        <nz-card class="section-card">
+          <div class="section-header">
+            <h3>Activity Timeline</h3>
+          </div>
+
+          <nz-timeline>
+            @for (item of activities; track item.title) {
+              <nz-timeline-item>
+                <strong>{{ item.title }}</strong>
+
+                <br />
+
+                <span>{{ item.time }}</span>
+              </nz-timeline-item>
+            }
+          </nz-timeline>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </section>
+</div>

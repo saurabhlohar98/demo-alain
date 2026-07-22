@@ -14,12 +14,12 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
             <img class="logo" src="./assets/logo-color.svg" />
             <span class="title">NG-ALAIN</span>
           </div>
-          <div class="desc">武林中最有影响力的《葵花宝典》；欲练神功，挥刀自宫</div>
+          <div class="desc">A modern Angular admin dashboard built with NG-ALAIN and NG-ZORRO.</div>
         </div>
         <router-outlet />
         <global-footer [links]="links">
           Copyright
-          <i class="anticon anticon-copyright"></i> 2025 <a href="//github.com/cipchk" target="_blank">卡色</a>出品
+          <i class="anticon anticon-copyright"></i> 2025 <a href="" target="_blank">Nextelus</a>
         </global-footer>
       </div>
     </div>
@@ -32,15 +32,15 @@ export class LayoutPassport {
 
   links = [
     {
-      title: '帮助',
+      title: 'Help',
       href: ''
     },
     {
-      title: '隐私',
+      title: 'Privacy',
       href: ''
     },
     {
-      title: '条款',
+      title: 'Terms',
       href: ''
     }
   ];
