@@ -1,0 +1,51 @@
+<form [formGroup]="contactForm" class="contact-form">
+  <div class="form-grid">
+    <!-- First Name -->
+    <div class="form-item">
+      <label class="form-label required">First Name</label>
+      <input nz-input formControlName="firstName" placeholder="Enter first name" />
+    </div>
+
+    <!-- Last Name -->
+    <div class="form-item">
+      <label class="form-label required">Last Name</label>
+      <input nz-input formControlName="lastName" placeholder="Enter last name" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-item">
+      <label class="form-label required">Email</label>
+      <input nz-input formControlName="email" placeholder="Enter email" />
+    </div>
+
+    <!-- Mobile -->
+    <div class="form-item">
+      <label class="form-label required">Mobile Number</label>
+      <input nz-input formControlName="mobile" placeholder="Enter mobile number" />
+    </div>
+
+    <!-- Company -->
+    <div class="form-item">
+      <label class="form-label">Company</label>
+      <input nz-input formControlName="company" placeholder="Enter company" />
+    </div>
+
+    <!-- Status -->
+    <div class="form-item">
+      <label class="form-label">Status</label>
+
+      <select class="ant-input" formControlName="status">
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button nz-button type="button" (click)="cancel()"> Cancel </button>
+
+    <button nz-button nzType="primary" type="button" (click)="save()">
+      {{ isEdit ? 'Update Contact' : 'Save Contact' }}
+    </button>
+  </div>
+</form>

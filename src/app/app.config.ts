@@ -28,10 +28,10 @@ import { enUS as dateLang } from 'date-fns/locale';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
 import { en_US as zorroLang } from 'ng-zorro-antd/i18n';
 
-import { provideBindAuthRefresh } from './core/net';
-import { routes } from './routes/routes';
 import { ICONS } from '../style-icons';
 import { ICONS_AUTO } from '../style-icons-auto';
+import { provideBindAuthRefresh } from './core/net';
+import { routes } from './routes/routes';
 
 const defaultLang: AlainProvideLang = {
   abbr: 'en',
@@ -42,7 +42,9 @@ const defaultLang: AlainProvideLang = {
 };
 
 const alainConfig: AlainConfig = {
-  auth: { login_url: '/passport/login' }
+  auth: {
+    login_url: '/passport/login'
+  }
 };
 
 const ngZorroConfig: NzConfig = {};
@@ -50,32 +52,51 @@ const ngZorroConfig: NzConfig = {};
 const routerFeatures: RouterFeatures[] = [
   withComponentInputBinding(),
   withViewTransitions(),
-  withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+  withInMemoryScrolling({
+    scrollPositionRestoration: 'top'
+  })
 ];
-if (environment.useHash) routerFeatures.push(withHashLocation());
+
+if (environment.useHash) {
+  routerFeatures.push(withHashLocation());
+}
 
 const providers: Array<Provider | EnvironmentProviders> = [
   provideBrowserGlobalErrorListeners(),
   provideZonelessChangeDetection(),
+
   provideHttpClient(withInterceptors([...(environment.interceptorFns ?? []), authSimpleInterceptor, defaultInterceptor])),
+
   provideRouter(routes, ...routerFeatures),
-  provideAlain({ config: alainConfig, defaultLang, icons: [...ICONS_AUTO, ...ICONS] }),
+
+  provideAlain({
+    config: alainConfig,
+    defaultLang,
+    icons: [...ICONS_AUTO, ...ICONS]
+  }),
+
   provideNzConfig(ngZorroConfig),
+
   provideAuth(),
+
   provideCellWidgets(...CELL_WIDGETS),
+
   provideSTWidgets(...ST_WIDGETS),
+
   provideSFConfig({
     widgets: [...SF_WIDGETS]
   }),
+
   provideStartup(),
+
   ...(environment.providers || [])
 ];
 
-// If you use `@delon/auth` to refresh the token, additional registration `provideBindAuthRefresh` is required
+// If you use @delon/auth to refresh the token
 if (environment.api?.refreshTokenEnabled && environment.api.refreshTokenType === 'auth-refresh') {
   providers.push(provideBindAuthRefresh());
 }
 
 export const appConfig: ApplicationConfig = {
-  providers: providers
+  providers
 };

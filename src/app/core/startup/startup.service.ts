@@ -1,11 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { EnvironmentProviders, Injectable, Provider, inject, provideAppInitializer } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ACLService } from '@delon/acl';
 import { DA_SERVICE_TOKEN } from '@delon/auth';
 import { ALAIN_I18N_TOKEN, MenuService, SettingsService, TitleService } from '@delon/theme';
-import { ACLService } from '@delon/acl';
-import { Observable, zip, of, catchError, map } from 'rxjs';
 import type { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { Observable, zip, of, catchError, map } from 'rxjs';
 
 /**
  * Used for application startup
@@ -44,11 +44,7 @@ export class StartupService {
   );
 
   load(): Observable<void> {
-    // http
-    // return this.viaHttp();
-    // mock: Don’t use it in a production environment. ViaMock is just to simulate some data to make the scaffolding work normally
-    // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
-    return this.viaMock();
+    return this.viaHttp();
   }
 
   private handleAppData(res: NzSafeAny): void {

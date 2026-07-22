@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { startPageGuard } from '@core';
 import { authSimpleCanActivate, authSimpleCanActivateChild } from '@delon/auth';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutBasic } from '../layout';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -14,11 +14,19 @@ export const routes: Routes = [
     data: {},
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent }
+
+      { path: 'dashboard', component: DashboardComponent },
+
+      {
+        path: 'crm/contacts',
+        loadChildren: () => import('./crm/contacts/routes').then(m => m.CONTACT_ROUTES)
+      }
     ]
   },
-  // passport
+
   { path: '', loadChildren: () => import('./passport/routes').then(m => m.routes) },
+
   { path: 'exception', loadChildren: () => import('./exception/routes').then(m => m.routes) },
+
   { path: '**', redirectTo: 'exception/404' }
 ];

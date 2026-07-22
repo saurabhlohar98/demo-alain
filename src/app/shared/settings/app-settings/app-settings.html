@@ -1,0 +1,13 @@
+<div class="settings-container">
+  <h2>Application Settings</h2>
+
+  <div class="setting-item">
+    <label>Theme</label>
+
+    <nz-radio-group [(ngModel)]="theme" (ngModelChange)="changeTheme($event)">
+      <label nz-radio nzValue="light"> Light </label>
+
+      <label nz-radio nzValue="dark"> Dark </label>
+    </nz-radio-group>
+  </div>
+</div>
